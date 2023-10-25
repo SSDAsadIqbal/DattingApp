@@ -26,16 +26,17 @@ export class ErrorInterceptor implements HttpInterceptor {
             case 400:
               if (error.error.errors) {
                 const modelStateErrors = [];
-
+            
                 for (const key in error.error.errors) {
                   if (error.error.errors[key]) {
                     modelStateErrors.push(error.error.errors[key]);
                   }
                 }
-
+            
                 throw modelStateErrors.flat();
               } else {
-                this.toastr.error(error.error, error.status.toString())
+                console.log('Server returned 400 error:', error.error); // Add this line for debugging
+                this.toastr.error(error.error, error.status.toString());
               }
               break;
 
