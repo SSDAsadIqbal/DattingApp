@@ -1,0 +1,15 @@
+<h4>Internal server error - refreshing the page will disapprear the error</h4>
+<ng-container *ngIf="error">
+    <h5 class="text-danger">error: {{error.message}}</h5>
+    <p class="font-weight-bold">Note: if you ar eseeign this then this is not a angular problem</p>
+    <p>what to do next</p>
+
+    <ol>
+        <li>open chrome dev tool ! then theck the failing req in Newtwork tab </li>
+        <li>examine the Url-req what Api Endpoint you are req</li>
+        <li>reproduce the problem inpostman - if  we get same error  angular is not probleming </li>
+    </ol>
+
+    <p style="font-weight: bold;">Following is the trace - the 1st few line will tell you whats problem</p>
+    <code class="mt-5" style="background-color: antiquewhite;"> {{error.details}}</code>
+</ng-container>

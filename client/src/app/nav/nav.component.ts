@@ -30,7 +30,7 @@ export class NavComponent  implements OnInit{
     .subscribe({
       next: () =>
         this.router.navigateByUrl('/members'),
-        error: error=>this.toastr.error(error.error)
+        // error: error=>this.toastr.error(error.error)
     })
   }
 
