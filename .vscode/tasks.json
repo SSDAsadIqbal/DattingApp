@@ -36,6 +36,14 @@
                 "${workspaceFolder}/DatingApp Using Angular+ DotNet.sln"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "type": "npm",
+            "script": "start",
+            "path": "client",
+            "problemMatcher": [],
+            "label": "npm: start - client",
+            "detail": "ng serve"
         }
     ]
 }
