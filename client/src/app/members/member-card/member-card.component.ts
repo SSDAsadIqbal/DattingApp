@@ -15,7 +15,7 @@ constructor(private memberService:MembersService, private toastr: ToastrService)
 
 addLike(member:Member)
 {
-  this.memberService.addLike(member.userName).subscribe({
+  this.memberService.addLike(member.userName).subscribe({ 
     next: ()=> this.toastr.success("You have successfully Likes" + member.knownAs)
   })
 }
