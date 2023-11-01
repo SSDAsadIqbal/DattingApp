@@ -45,13 +45,13 @@ public class UsersController : BaseApiController
 
     }
 
+
     [HttpGet("{username}")] // api/users/2
     public async Task<ActionResult<MemberDto>> GetUser(string username)
     {
         return await _userRepository.GetMemberAsync(username);
 
     }
-
     [HttpPut]
     public async Task<ActionResult> UpdateUser(memberUpdateDto memberUpdateDto)
     {
