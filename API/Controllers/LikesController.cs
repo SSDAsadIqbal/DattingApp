@@ -9,27 +9,25 @@ namespace API.Controllers
 {
     public class LikesController : BaseApiController
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IlikesRepository _likesRepository;
+        private readonly IUnitOfWork _uow;
 
-        public LikesController(IUserRepository userRepository, IlikesRepository likesRepository)
+        public LikesController(IUnitOfWork uow)
         {
-            _likesRepository = likesRepository;
-            _userRepository = userRepository;
+            _uow = uow;
         }
 
         [HttpPost("{username}")]
         public async Task<ActionResult> AddLike(string username)
         {
             var sourceUserId = User.GetuserId();
-            var likedUser = await _userRepository.GetUserByUsernameAsync(username);
-            var sourceUser = await _likesRepository.GetUserWithLike(sourceUserId);
+            var likedUser = await _uow.UserRepository.GetUserByUsernameAsync(username);
+            var sourceUser = await _uow.LikesRepository.GetUserWithLike(sourceUserId);
 
             if (likedUser == null) return NotFound();
 
             if (sourceUser.UserName == username) return BadRequest("You cant Like YourSelf");
 
-            var userLike = await _likesRepository.GetUserLike(sourceUserId, likedUser.Id); 
+            var userLike = await _uow.LikesRepository.GetUserLike(sourceUserId, likedUser.Id); 
 
             if (userLike != null) return BadRequest("You already Liked this user");
 
@@ -41,7 +39,7 @@ namespace API.Controllers
 
             sourceUser.LikedUsers.Add(userLike);
 
-            if(await _userRepository.SaveAllAsync()) return Ok();
+            if(await _uow.Complete()) return Ok();
 
             return BadRequest("Couldn't  Like user");
         }
@@ -51,7 +49,7 @@ namespace API.Controllers
         {
             likesParams.UserId = User.GetuserId();
 
-            var users = await _likesRepository.GetUserLikes(likesParams);
+            var users = await _uow.LikesRepository.GetUserLikes(likesParams);
 
             Response.AddPaginationHeader( new PaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages));
 

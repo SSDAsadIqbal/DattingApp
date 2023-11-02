@@ -18,18 +18,14 @@ namespace API.Extensions
                 opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
             });
             services.AddCors();
-
             services.AddScoped<ITokenServie, TokenService>();
-            services.AddScoped<IUserRepository, UserRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<LogUSerActivity>();
-            services.AddScoped<IlikesRepository, LikesRepository>();
-            services.AddScoped<ImessageRepository, MessageRepository>();
             services.AddSignalR();
             services.AddSingleton<PresenceTracker>();
-            
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }
