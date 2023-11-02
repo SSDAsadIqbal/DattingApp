@@ -25,4 +25,4 @@ jobs:
         with:
           context:"{{defaultContext}}:API"
           push: true
-          tags: asadiqbal1122/datingapp:latest
+          tags: SSDAsadIqbal/datingapp:latest
