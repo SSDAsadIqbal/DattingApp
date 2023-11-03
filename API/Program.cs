@@ -33,13 +33,13 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseDefaultFiles();
-app.UseStaticFiles();
+app.UseDefaultFiles();
+
 
 app.MapControllers();
 app.MapHub<PresenceHub>("hubs/presence");
 app.MapHub<MessageHub>("hubs/message");
 app.MapFallbackToController("Index", "Fallback");
-
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
@@ -55,7 +55,7 @@ try
 }
 catch(Exception ex)
 {
-    var logger = services.GetService<Logger<Program>>();
+    var logger = services.GetService<ILogger<Program>>();
     logger.LogError(ex,"An error occurred while migrating");
 }
 
